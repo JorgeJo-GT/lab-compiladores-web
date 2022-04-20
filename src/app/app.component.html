@@ -1,12 +1,177 @@
 <app-header></app-header>
-<main>
-  <div class="grid grid-nogutter">
-    <div class="col-6">
-  
-    </div>
-    <div class="col-6">
-  
+<div class="grid grid-nogutter px-4 py-5">
+  <div class="col-3">
+    <p-fileUpload [showCancelButton]="false" [showUploadButton]="false" [auto]="true" mode="advanced"
+      uploadLabel="Cargar" chooseLabel="Escoger Archivo" accept=".txt" [multiple]="false" name="file"
+      [customUpload]="true" (uploadHandler)="uploadFile($event)" [previewWidth]="0"
+      invalidFileTypeMessageSummary="{0}: Extensión de archivo inválida, "
+      invalidFileTypeMessageDetail="solo se permiten archivos de tipo: {0}">
+      <ng-template let-file pTemplate="file">
+        <div>Archivo seleccionado: <strong>{{file.name}}</strong></div>
+      </ng-template>
+    </p-fileUpload>
+  </div>
+  <div class="col"></div>
+  <div class="col-8">
+    <div class="grid grid-nogutter">
+      <div class="col-3">
+        <p-table [value]="variables.unique" [scrollable]="true" scrollHeight="400px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:100px">V</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-value>
+            <tr>
+              <td style="min-width:100px">{{value}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="col-3">
+        <p-table [value]="variables.terminals" [scrollable]="true" scrollHeight="400px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:100px">T</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-value>
+            <tr>
+              <td style="min-width:100px">{{value.production}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="col-6">
+        <p-table [value]="variables.productions" [scrollable]="true" scrollHeight="400px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:100px">Variables</th>
+              <th style="min-width:100px">Producciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-variable>
+            <tr>
+              <td>
+                <span> {{variable.variable}} </span>
+              </td>
+              <td>
+                <span> {{variable.production}} </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <!--
+      <div class="col-3">
+        <p-table [value]="variables.variables" [scrollable]="true" scrollHeight="400px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:100px">Variables</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-variable>
+            <tr>
+              <td>
+                <p-skeleton *ngIf="!variable"></p-skeleton>
+                <span *ngIf="variable"> {{variable}} </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="col-3">
+        <p-table [value]="test" [scrollable]="true" scrollHeight="400px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="min-width:100px">Producciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-value>
+            <tr>
+              <td style="min-width:100px">{{value}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    -->
     </div>
   </div>
-</main>
+</div>
+<div *ngIf="false" class="grid grid-nogutter px-4 py-5">
+  <div class="col-12">
+    <textarea pInputTextArea cols="30" rows="10" [(ngModel)]="text"></textarea>
+  </div>
+</div>
+<!--
+<div class="grid grid-nogutter px-2 mb-2">
+  <div class="col-12">
+    <div class="grid grid-nogutter">
+      <div class="col-3">
+        <p-table [value]="variables.unique" [scrollable]="true" scrollHeight="400px">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th style="min-width:100px">Name</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-value>
+              <tr>
+                  <td style="min-width:100px">{{value}}</td>
+              </tr>
+          </ng-template>
+      </p-table>
+      </div>
+      <div class="col-3">
+        <p-table [value]="test" responsiveLayout="scroll" scrollHeight="300px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>T</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>
+                <p-skeleton></p-skeleton>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="col-3">
+        <p-table [value]="variables.variables" responsiveLayout="scroll" scrollHeight="flex">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Variables</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-variable>
+            <tr>
+              <td>
+                <p-skeleton *ngIf="!variable"></p-skeleton>
+                <span *ngIf="variable"> {{variable}} </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="col-3">
+        <p-table [value]="test" responsiveLayout="scroll" scrollHeight="300px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Producciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>
+                <p-skeleton></p-skeleton>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+-->
 <app-footer></app-footer>
